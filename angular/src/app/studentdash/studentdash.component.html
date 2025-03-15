@@ -1,0 +1,29 @@
+<header class="header">
+    <div class="menu-icon" (click)="toggleMenu()">☰</div>
+    <div class="dropdown-menu" [class.show]="menuOpen">
+        <ul>
+            <li (click)="logout()">Log Out</li>
+        </ul>
+    </div>
+</header>
+
+<div class="dashboard-container">
+
+    <div class="profile-section">
+        <img [src]="profileImage" alt="Profile Picture" class="profile-pic">
+        <input type="file" id="profileUpload" class="hidden" (change)="uploadProfileImage($event)">
+        <button class="upload-btn" (click)="triggerFileInput()">Change Picture</button>
+        <div class="profile-info">
+            <p><strong>Name:</strong>Name here</p>
+            <p><strong>Email:</strong>UPR Email here</p>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="main-section">
+        <button class="dashboard-btn">Tutors</button>
+        <button class="dashboard-btn">Book Sessions</button>
+        <button class="dashboard-btn">Study Groups</button>
+    </div>
+</div>

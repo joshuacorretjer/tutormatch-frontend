@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="angular\src\app\register\register.component.css">
-    <title>Create New Account</title>
-</head>
-<body>
-    <header class="header"></header>
-    <div class="container">
-        <h1>Create New Account</h1>
-        <p class="subtext"> Register as:</p>
-        <div class="button-container">
-            <a href="tutorreg.html" class="tutor-link">
-                <button class="tutor-btn">Tutor</button>
-            <a href="studentreg.html" class="student-link">
-                <button class="student-btn">Student</button>
-            </a>
-            <p>Already have an account? <a href="login.html">Log In</a></p>
-        </div>
+<header class="header"></header>
+<div class="container">
+    <h1>Create New Account</h1>
+    <p class="subtext"> Register as:</p>
+    <div class="button-container">
+        <a [routerLink]="['/tutorreg']" class="tutor-link">
+            <button class="tutor-btn">Tutor</button>
+        </a>
+        <a [routerLink]="['/studentreg']" class="student-link">
+            <button class="student-btn">Student</button>
+        </a>
+        <p>Already have an account? <a [routerLink]="['/login']">Log In</a></p>
     </div>
-</body>
-</html>
+</div>
