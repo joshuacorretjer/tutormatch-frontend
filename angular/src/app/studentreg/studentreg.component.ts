@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-studentreg',
@@ -9,5 +10,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './studentreg.component.css'
 })
 export class StudentregComponent {
+  constructor(private router: Router) { }
+
+  onSubmit() {
+    // Perform any form validation or API calls if needed
+    console.log('Sign-up successful');
+
+    this.router.navigate(['/studentdash']);
+  }
 
 }
