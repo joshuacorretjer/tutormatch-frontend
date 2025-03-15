@@ -4,6 +4,7 @@ import { RegisterComponent } from './register/register.component';
 import { TutorregComponent } from './tutorreg/tutorreg.component';
 import { StudentregComponent } from './studentreg/studentreg.component';
 import { StudentdashComponent } from './studentdash/studentdash.component';
+import { TutordashComponent } from './tutordash/tutordash.component';
 
 
 export const routes: Routes = [
@@ -13,5 +14,6 @@ export const routes: Routes = [
     { path: 'tutorreg', component: TutorregComponent },
     { path: 'studentreg', component: StudentregComponent },
     {path: 'studentdash', component: StudentdashComponent},
+    {path: 'tutordash', component: TutordashComponent},
 ];
 
