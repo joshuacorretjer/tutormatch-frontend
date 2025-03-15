@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TutorregComponent } from './tutorreg/tutorreg.component';
 import { StudentregComponent } from './studentreg/studentreg.component';
+import { StudentdashComponent } from './studentdash/studentdash.component';
 
 
 export const routes: Routes = [
@@ -10,6 +11,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'tutorreg', component: TutorregComponent },
-    { path: 'studentreg', component: StudentregComponent }
+    { path: 'studentreg', component: StudentregComponent },
+    {path: 'studentdash', component: StudentdashComponent},
 ];
 
