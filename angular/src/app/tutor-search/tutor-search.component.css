@@ -1,0 +1,67 @@
+.tutor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 1rem;
+  }
+  
+  .tutor-card {
+    width: 280px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ccc;
+  }
+  
+  .info {
+    flex: 1;
+  }
+  
+  .book-btn {
+    margin-top: 10px;
+    background-color: green;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .book-btn:hover {
+    background-color: darkgreen;
+  }
+
+  .filter-bar {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .filter-bar input {
+    padding: 10px 15px;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+  }
+  
+  

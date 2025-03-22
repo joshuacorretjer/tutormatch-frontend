@@ -1,0 +1,20 @@
+<div class="filter-bar">
+    <input
+      type="text"
+      placeholder="Search tutors by name or topic..."
+      [(ngModel)]="filterText"
+      (input)="filterTutors($event)"
+    />
+  </div>
+  
+
+<div class="tutor-grid">
+    <div class="tutor-card" *ngFor="let tutor of filteredTutors">
+      <img [src]="tutor.profilePicture" class="profile-pic" alt="Tutor Profile">
+      <div class="info">
+        <h3>{{ tutor.name }}</h3>
+        <p><strong>Topics:</strong> {{ tutor.topics.join(', ') }}</p>
+        <button class="book-btn">Book Session</button>
+      </div>
+    </div>
+</div>  
