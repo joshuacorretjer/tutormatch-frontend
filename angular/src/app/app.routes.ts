@@ -5,6 +5,7 @@ import { TutorregComponent } from './tutorreg/tutorreg.component';
 import { StudentregComponent } from './studentreg/studentreg.component';
 import { StudentdashComponent } from './studentdash/studentdash.component';
 import { TutordashComponent } from './tutordash/tutordash.component';
+import { TutorSearchComponent } from './tutor-search/tutor-search.component';
 
 
 export const routes: Routes = [
@@ -15,5 +16,6 @@ export const routes: Routes = [
     { path: 'studentreg', component: StudentregComponent },
     {path: 'studentdash', component: StudentdashComponent},
     {path: 'tutordash', component: TutordashComponent},
+    {path: 'tutor-search', component: TutorSearchComponent}
 ];
 

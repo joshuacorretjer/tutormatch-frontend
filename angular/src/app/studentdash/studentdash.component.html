@@ -6,24 +6,36 @@
         </ul>
     </div>
 </header>
-
-<div class="dashboard-container">
-
-    <div class="profile-section">
-        <img [src]="profileImage" alt="Profile Picture" class="profile-pic">
-        <input type="file" id="profileUpload" class="hidden" (change)="uploadProfileImage($event)">
-        <button class="upload-btn" (click)="triggerFileInput()">Change Picture</button>
-        <div class="profile-info">
-            <p><strong>Name:</strong>Name here</p>
-            <p><strong>Email:</strong>UPR Email here</p>
+<div class="dashboard-wrapper">
+    <div class="dashboard-container">
+        <div class="profile-section">
+            <img [src]="profileImage" alt="Profile Picture" class="profile-pic">
+            <input type="file" id="profileUpload" class="hidden" (change)="uploadProfileImage($event)">
+            <button class="upload-btn" (click)="triggerFileInput()">Change Picture</button>
+            <div class="profile-info">
+                <p><strong>Name:</strong> Name Here</p>
+                <p><strong>Email:</strong> Email here</p>
+            </div>
         </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="main-section">
-        <button class="dashboard-btn">Tutors</button>
-        <button class="dashboard-btn">Book Sessions</button>
-        <button class="dashboard-btn">Study Groups</button>
+        <div class="tab-wrapper">
+            <div class="tab-container">
+                <div class="tab" [class.active]="activeTab === 'tutors'" (click)="setActiveTab('tutors')">Tutors</div>
+                <div class="tab" [class.active]="activeTab === 'book'" (click)="setActiveTab('book')">Book Sessions</div>
+                <div class="tab" [class.active]="activeTab === 'groups'" (click)="setActiveTab('groups')">Study Groups</div>
+            </div>
+            <div class="tab-content">
+                <div *ngIf="activeTab === 'tutors'">
+                    <app-tutor-search></app-tutor-search>
+                </div>
+                <!--
+                <div *ngIf="activeTab === 'book'">
+                    <app-courses></app-courses>
+                </div>
+                <div *ngIf="activeTab === 'groups'">
+                    <app-sessions></app-sessions>
+                </div>
+                -->
+            </div>
+        </div>
     </div>
 </div>

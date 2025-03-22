@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {Router} from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { TutorSearchComponent } from '../tutor-search/tutor-search.component';
 
 @Component({
   selector: 'app-studentdash',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule, TutorSearchComponent],
   templateUrl: './studentdash.component.html',
   styleUrl: './studentdash.component.css'
 })
 export class StudentdashComponent {
   menuOpen = false;
   profileImage: string = 'assets/images/profile.jpg';
+  activeTab: string = 'home';
 
   constructor(private router: Router) {}
 
@@ -42,4 +45,7 @@ export class StudentdashComponent {
     }
   }
 
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+  }
 }
