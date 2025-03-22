@@ -3,11 +3,12 @@ import { RouterModule } from '@angular/router';
 import {Router} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TutorSearchComponent } from '../tutor-search/tutor-search.component';
+import { CourseListComponent } from '../course-list/course-list.component';
 
 @Component({
   selector: 'app-studentdash',
   standalone: true,
-  imports: [RouterModule, CommonModule, TutorSearchComponent],
+  imports: [RouterModule, CommonModule, TutorSearchComponent, CourseListComponent],
   templateUrl: './studentdash.component.html',
   styleUrl: './studentdash.component.css'
 })

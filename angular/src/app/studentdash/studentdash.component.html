@@ -20,17 +20,18 @@
         <div class="tab-wrapper">
             <div class="tab-container">
                 <div class="tab" [class.active]="activeTab === 'tutors'" (click)="setActiveTab('tutors')">Tutors</div>
-                <div class="tab" [class.active]="activeTab === 'book'" (click)="setActiveTab('book')">Book Sessions</div>
+                <div class="tab" [class.active]="activeTab === 'course list'" (click)="setActiveTab('course list')">Course List</div>
                 <div class="tab" [class.active]="activeTab === 'groups'" (click)="setActiveTab('groups')">Study Groups</div>
             </div>
             <div class="tab-content">
                 <div *ngIf="activeTab === 'tutors'">
                     <app-tutor-search></app-tutor-search>
                 </div>
-                <!--
-                <div *ngIf="activeTab === 'book'">
-                    <app-courses></app-courses>
+
+                <div *ngIf="activeTab === 'course list'">
+                    <app-course-list></app-course-list>
                 </div>
+                <!--
                 <div *ngIf="activeTab === 'groups'">
                     <app-sessions></app-sessions>
                 </div>
