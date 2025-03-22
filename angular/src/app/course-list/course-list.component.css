@@ -1,0 +1,51 @@
+.course-table-wrapper {
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: 400px;
+    padding-right: 10px;
+  }
+  
+  .course-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .course-table th,
+  .course-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .course-table th {
+    background-color: #f0f0f0;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .filter-bar {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .filter-bar input {
+    padding: 10px 15px;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    outline: none;
+  }
+  
+  th span {
+    font-size: 0.75rem;
+    margin-left: 5px;
+  }
+
+  th span:hover {
+    cursor: pointer;
+  }
+  
