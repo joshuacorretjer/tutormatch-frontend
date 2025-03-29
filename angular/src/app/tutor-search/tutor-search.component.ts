@@ -12,6 +12,7 @@ import { BookSessionFormComponent } from '../book-session-form/book-session-form
   styleUrl: './tutor-search.component.css'
 })
 export class TutorSearchComponent implements OnInit {
+  showBookingModal: boolean = false;
   tutors: any[] = [];
   filterText: string = '';
   filteredTutors: any[] = [];

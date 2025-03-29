@@ -31,7 +31,8 @@
     <app-book-session-form
       [tutorName]="selectedTutor?.name"
       [studentName]="studentName"
-      [studentEmail]="studentEmail">
+      [studentEmail]="studentEmail"
+      (closeModal)="showBookingModal = false;">
     </app-book-session-form>
     <button class="close-btn" (click)="closeBookingForm()">✖</button>
   </div>

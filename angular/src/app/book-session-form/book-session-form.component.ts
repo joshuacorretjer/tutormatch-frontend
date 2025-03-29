@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BookingService } from '../services/booking.service';
 
 @Component({
   selector: 'app-book-session-form',
@@ -14,6 +15,7 @@ export class BookSessionFormComponent {
   @Input() tutorName: string = '';
   @Input() studentName: string = '';
   @Input() studentEmail: string = '';
+  @Output() closeModal = new EventEmitter<void>();
 
   formData = {
     topic: '',
@@ -24,13 +26,18 @@ export class BookSessionFormComponent {
     notes: ''
   };
 
+  constructor(private bookingService: BookingService) {}
+
+
   submitForm() {
-    console.log("Booking submitted:", {
+    this.bookingService.addBooking({
       tutor: this.tutorName,
       student: this.studentName,
       email: this.studentEmail,
       ...this.formData
     });
+
     alert("Session booked successfully!");
+    this.closeModal.emit(); 
   }
 }
