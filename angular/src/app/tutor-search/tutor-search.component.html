@@ -21,7 +21,18 @@
     <div class="info">
       <h3>{{ tutor.name }}</h3>
       <p><strong>Topics:</strong> {{ tutor.topics.join(', ') }}</p>
-      <button class="book-btn">Book Session</button>
+      <button class="book-btn" (click)="openBookingForm(tutor)">Book Session</button>
     </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showBookingForm">
+  <div class="modal-content">
+    <app-book-session-form
+      [tutorName]="selectedTutor?.name"
+      [studentName]="studentName"
+      [studentEmail]="studentEmail">
+    </app-book-session-form>
+    <button class="close-btn" (click)="closeBookingForm()">✖</button>
   </div>
 </div>

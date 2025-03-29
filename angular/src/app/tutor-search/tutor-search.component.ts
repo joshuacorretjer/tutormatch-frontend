@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BookSessionFormComponent } from '../book-session-form/book-session-form.component';
 
 @Component({
   selector: 'app-tutor-search',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BookSessionFormComponent],
   templateUrl: './tutor-search.component.html',
   styleUrl: './tutor-search.component.css'
 })
@@ -97,5 +98,22 @@ export class TutorSearchComponent implements OnInit {
       )
     );
   }
+
+  showBookingForm = false;
+  selectedTutor: any = null;
+
+  studentName: string = '';
+  studentEmail: string = '';
+
+  openBookingForm(tutor: any) {
+    this.showBookingForm = true;
+    this.selectedTutor = tutor;
+    document.body.classList.add('modal-open');
+  }
+  closeBookingForm() {
+    this.showBookingForm = false;
+    document.body.classList.remove('modal-open');
+  }
+
   
 }
