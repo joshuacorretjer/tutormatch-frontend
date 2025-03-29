@@ -64,4 +64,17 @@
     font-size: 16px;
   }
   
+  .rating {
+    text-align: center;
+    margin-top: 4px;
+  }
+  
+  .rating span {
+    color: #ccc;
+    font-size: 18px;
+  }
+  
+  .rating span.filled {
+    color: #f4c430; /* golden star */
+  }
   

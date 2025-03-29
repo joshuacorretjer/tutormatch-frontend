@@ -23,52 +23,62 @@ export class TutorSearchComponent implements OnInit {
       {
         name: 'Alice Rodriguez',
         topics: ['Math', 'Physics'],
-        profilePicture: 'https://randomuser.me/api/portraits/women/1.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/women/1.jpg',
+        rating: 4.5
       },
       {
         name: 'Brandon Lee',
         topics: ['Programming', 'Data Structures'],
-        profilePicture: 'https://randomuser.me/api/portraits/men/2.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/men/2.jpg',
+        rating: 4.8
       },
       {
         name: 'Sara Ahmed',
         topics: ['Biology', 'Chemistry'],
-        profilePicture: 'https://randomuser.me/api/portraits/women/3.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/women/3.jpg',
+        rating: 2.5
       },
       {
         name: 'Carlos Martínez',
         topics: ['Spanish', 'Literature'],
-        profilePicture: 'https://randomuser.me/api/portraits/men/4.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/men/4.jpg',
+        rating: 3.5
       },
       {
         name: 'Emily Chen',
         topics: ['English', 'Creative Writing'],
-        profilePicture: 'https://randomuser.me/api/portraits/women/5.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/women/5.jpg',
+        rating: 4.0
       },
       {
         name: 'David Kim',
         topics: ['Calculus', 'Algebra'],
-        profilePicture: 'https://randomuser.me/api/portraits/men/6.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/men/6.jpg',
+        rating: 1.5
       },
       {
         name: 'Natalie Vega',
         topics: ['History', 'Political Science'],
-        profilePicture: 'https://randomuser.me/api/portraits/women/7.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/women/7.jpg',
+        rating: 3.0
       },
       {
         name: 'Leonardo Silva',
         topics: ['Economics', 'Statistics'],
-        profilePicture: 'https://randomuser.me/api/portraits/men/8.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/men/8.jpg',
+        rating: 5.0
       },
       {
         name: 'Amara Singh',
         topics: ['Philosophy', 'Sociology'],
-        profilePicture: 'https://randomuser.me/api/portraits/women/9.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/women/9.jpg',
+        rating: 4.2
       },
       {
         name: 'Noah Johnson',
         topics: ['Computer Science', 'Machine Learning'],
-        profilePicture: 'https://randomuser.me/api/portraits/men/10.jpg'
+        profilePicture: 'https://randomuser.me/api/portraits/men/10.jpg',
+        rating: 2.0
       }
     ];
 

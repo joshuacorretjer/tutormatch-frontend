@@ -21,7 +21,8 @@
             <div class="tab-container">
                 <div class="tab" [class.active]="activeTab === 'tutors'" (click)="setActiveTab('tutors')">Tutors</div>
                 <div class="tab" [class.active]="activeTab === 'course list'" (click)="setActiveTab('course list')">Course List</div>
-                <div class="tab" [class.active]="activeTab === 'groups'" (click)="setActiveTab('groups')">Study Groups</div>
+                <div class="tab" [class.active]="activeTab === 'book'" (click)="setActiveTab('book')">Book Session</div>
+                <div class="tab" [class.active]="activeTab === 'booked'" (click)="setActiveTab('booked')">Booked Sessions</div>
             </div>
             <div class="tab-content">
                 <div *ngIf="activeTab === 'tutors'">
