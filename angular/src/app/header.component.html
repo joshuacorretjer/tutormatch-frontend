@@ -1,0 +1,9 @@
+<div class="header">
+    <div class="menu-icon" (click)="toggleMenu()">&#9776;</div>
+    <div class="dropdown-menu" [class.show]="menuOpen">
+      <ul>
+        <li (click)="logout()">Log Out</li>
+      </ul>
+    </div>
+</div>
+  
