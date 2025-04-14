@@ -6,10 +6,11 @@ import { StudentregComponent } from './studentreg/studentreg.component';
 import { StudentdashComponent } from './studentdash/studentdash.component';
 import { TutordashComponent } from './tutordash/tutordash.component';
 import { TutorSearchComponent } from './tutor-search/tutor-search.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect default path to login
+    { path: '', component: HomepageComponent }, // Redirect default path to login
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'tutorreg', component: TutorregComponent },
