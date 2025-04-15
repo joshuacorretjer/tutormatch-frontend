@@ -4,7 +4,7 @@ import { RegisterComponent } from './register/register.component';
 import { TutorregComponent } from './tutorreg/tutorreg.component';
 import { StudentregComponent } from './studentreg/studentreg.component';
 import { StudentdashComponent } from './studentdash/studentdash.component';
-import { TutordashComponent } from './tutordash/tutordash.component';
+import { TutorDashComponent } from './tutordash/tutordash.component';
 import { TutorSearchComponent } from './tutor-search/tutor-search.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
@@ -16,7 +16,7 @@ export const routes: Routes = [
     { path: 'tutorreg', component: TutorregComponent },
     { path: 'studentreg', component: StudentregComponent },
     {path: 'studentdash', component: StudentdashComponent},
-    {path: 'tutordash', component: TutordashComponent},
+    {path: 'tutordash', component: TutorDashComponent},
     {path: 'tutor-search', component: TutorSearchComponent}
 ];
 
