@@ -1,18 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
-import { TutordashComponent } from './tutordash.component';
+import { TutorDashComponent } from './tutordash.component';
 
 describe('TutordashComponent', () => {
-  let component: TutordashComponent;
-  let fixture: ComponentFixture<TutordashComponent>;
+  let component: TutorDashComponent;
+  let fixture: ComponentFixture<TutorDashComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TutordashComponent]
+    providers: [
+      {
+      provide: ActivatedRoute,
+      useValue: {
+        params: of({}),
+        snapshot: { paramMap: {} }
+      }
+    }
+    ],
+      imports: [TutorDashComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TutordashComponent);
+    fixture = TestBed.createComponent(TutorDashComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
