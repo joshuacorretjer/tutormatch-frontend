@@ -1,17 +1,21 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://your-api-url.com/api/login'; // 🔁 Update this with your actual backend URL
+  private apiUrl = 'http://127.0.0.1:5000/api/login';
 
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(this.apiUrl, { email, password });
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(this.apiUrl, {
+      username_or_email: email,  // ✅ Match backend expected key
+      password
+    }, { headers });
   }
 }
