@@ -1,33 +1,41 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
-  errorMessage: string = '';
+  email = '';
+  password = '';
+  errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
-  
+
   login() {
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response) => {
-        console.log('Login success:', response);
-        // Optionally save token or user info
-        // localStorage.setItem('token', response.token);
-        this.router.navigate(['/studentdash']);
+    const credentials = {
+      email: this.email,
+      password: this.password
+    };
+
+    this.authService.login(credentials).subscribe({
+      next: (res) => {
+        // Assume backend returns { email, role }
+        this.authService.setUserSession(res.email, res.role);
+
+        if (res.role === 'student') {
+          this.router.navigate(['/studentdash']);
+        } else if (res.role === 'tutor') {
+          this.router.navigate(['/tutordash']);
+        } else {
+          this.router.navigate(['/']);
+        }
       },
       error: (err) => {
         console.error('Login failed:', err);
@@ -35,5 +43,4 @@ export class LoginComponent {
       }
     });
   }
-
 }
