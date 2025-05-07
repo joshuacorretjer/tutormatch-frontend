@@ -1,22 +1,47 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-studentreg',
   standalone: true,
-  imports: [RouterModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './studentreg.component.html',
   styleUrl: './studentreg.component.css'
 })
 export class StudentregComponent {
-  constructor(private router: Router) { }
+  name = '';
+  email = '';
+  password = '';
+  confirmPassword = '';
+  errorMessage = '';
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    // Perform any form validation or API calls if needed
-    console.log('Sign-up successful');
+    if (this.password !== this.confirmPassword) {
+      this.errorMessage = 'Passwords do not match';
+      return;
+    }
 
-    this.router.navigate(['/studentdash']);
+    const studentData = {
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      role: 'student'
+    };
+
+    this.http.post('http://localhost:5000/api/register', studentData).subscribe({
+      next: () => {
+        alert('Student registered successfully!');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error(err);
+        this.errorMessage = 'Registration failed.';
+      }
+    });
   }
-
 }

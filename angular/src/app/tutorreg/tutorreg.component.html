@@ -1,37 +1,74 @@
-<header class="header"></header>
-
-<div class="container">
-    <h1>Create New Account</h1>
-    <p>Already have an account? <a [routerLink]="['/login']">Log In</a></p>
-
+<div class="register-container">
+    <h2>Tutor Registration</h2>
+  
     <form>
-        <label for="name">Full Name</label>
-        <input type="text" name="name" id="name" placeholder="Enter your full name" required>
-
-        <label for="email">UPR Email</label>
-        <input type="email" name="email" id="email" placeholder="Something@upr.edu" required>
-
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="Enter your password" required>
-
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm your password" required>
-
-        <label for="gpa">GPA (Optional)</label>
-        <input type="number" name="gpa" id="gpa" placeholder="Enter your GPA">
-
-        <label for="courses-tutored">Courses Tutored</label>
-        <select id="courses-tutored" name="courses-tutored">
-            <option value="MATE">MATE</option>
-            <option value="QUIM">QUIM</option>
-            <option value="FISI">FISI</option>
-            <option value="ESPA">ESPA</option>
-            <option value="INSO">INSO</option>
-        </select>
-
-        <label for="extra info">Additional Info</label>
-        <textarea id="extra-info" name="extra-info" rows="4" placeholder="Any relevant experience or notes"></textarea>
-
-        <button type="button" (click)="onSubmit()">Sign Up</button>
+      <label for="name">Full Name</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="name"
+        name="name"
+        required
+      />
+  
+      <label for="email">UPR Email</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+      />
+  
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+  
+      <label for="confirm-password">Confirm Password</label>
+      <input
+        type="password"
+        id="confirm-password"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        required
+      />
+  
+      <label for="gpa">GPA (Optional)</label>
+      <input
+        type="number"
+        id="gpa"
+        [(ngModel)]="gpa"
+        name="gpa"
+      />
+  
+      <label for="courses-tutored">Courses Tutored</label>
+      <select
+        id="courses-tutored"
+        [(ngModel)]="courseTutored"
+        name="courseTutored"
+      >
+        <option value="MATE">MATE</option>
+        <option value="QUIM">QUIM</option>
+        <option value="FISI">FISI</option>
+        <option value="ESPA">ESPA</option>
+        <option value="INSO">INSO</option>
+      </select>
+  
+      <label for="extra-info">Additional Info</label>
+      <textarea
+        id="extra-info"
+        [(ngModel)]="extraInfo"
+        name="extraInfo"
+        rows="4"
+      ></textarea>
+  
+      <button type="button" (click)="onSubmit()">Sign Up</button>
+      <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
     </form>
-</div>
+  </div>
+  

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BookingService } from '../services/booking.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-book-session-form',
@@ -11,7 +11,6 @@ import { BookingService } from '../services/booking.service';
   styleUrl: './book-session-form.component.css'
 })
 export class BookSessionFormComponent {
-
   @Input() tutorName: string = '';
   @Input() studentName: string = '';
   @Input() studentEmail: string = '';
@@ -26,18 +25,25 @@ export class BookSessionFormComponent {
     notes: ''
   };
 
-  constructor(private bookingService: BookingService) {}
-
+  constructor(private http: HttpClient) {}
 
   submitForm() {
-    this.bookingService.addBooking({
-      tutor: this.tutorName,
-      student: this.studentName,
-      email: this.studentEmail,
+    const booking = {
+      tutorName: this.tutorName,
+      studentName: this.studentName,
+      studentEmail: this.studentEmail,
       ...this.formData
-    });
+    };
 
-    alert("Session booked successfully!");
-    this.closeModal.emit(); 
+    this.http.post('http://localhost:5000/api/sessions', booking).subscribe({
+      next: () => {
+        alert('Session booked successfully!');
+        this.closeModal.emit();
+      },
+      error: (err) => {
+        console.error('Booking failed:', err);
+        alert('There was an error booking the session.');
+      }
+    });
   }
 }

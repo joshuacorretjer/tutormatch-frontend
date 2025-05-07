@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,38 +11,41 @@ import { CommonModule } from '@angular/common';
 })
 export class SessionRequestsComponent implements OnInit {
   requests: any[] = [];
+  tutorEmail = 'tutor@example.com'; // TODO: Replace with actual logged-in tutor email
 
-  acceptRequest(req: any): void {
-    console.log('Accepted request:', req);
-    // You can later update status, call API, or remove it from the list
-  }
-  
-  declineRequest(req: any): void {
-    console.log('Declined request:', req);
-    // Same as above — show message or update status
-  }
-  
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Eventually replace this with API call
-    this.requests = [
-      {
-        topic: 'Calculus',
-        student: 'Alice Smith',
-        date: '2024-04-18',
-        time: '2:00 PM',
-        notes: 'Need help with derivatives',
-        status: 'pending'
-      },
-      {
-        topic: 'Programming',
-        student: 'John Doe',
-        date: '2024-04-20',
-        time: '11:00 AM',
-        notes: 'None',
-        status: 'pending'
-      }
-    ];
+    this.loadRequests();
+  }
 
+  loadRequests(): void {
+    this.http.get<any[]>(`http://localhost:5000/api/session-requests?tutor=${this.tutorEmail}`).subscribe({
+      next: (res) => {
+        this.requests = res;
+      },
+      error: (err) => {
+        console.error('Failed to load session requests:', err);
+      }
+    });
+  }
+
+  acceptRequest(req: any): void {
+    this.updateRequestStatus(req, 'accepted');
+  }
+
+  declineRequest(req: any): void {
+    this.updateRequestStatus(req, 'declined');
+  }
+
+  private updateRequestStatus(req: any, status: string): void {
+    this.http.put(`http://localhost:5000/api/session-requests/${req.id}`, { status }).subscribe({
+      next: () => {
+        req.status = status; // update UI immediately
+      },
+      error: (err) => {
+        console.error(`Failed to ${status} request:`, err);
+      }
+    });
   }
 }

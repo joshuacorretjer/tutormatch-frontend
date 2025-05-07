@@ -38,7 +38,8 @@
       <label>Additional Notes</label>
       <textarea [(ngModel)]="formData.notes" name="notes"></textarea>
   
-      <button type="submit">Confirm Booking</button>
+      <button type="button" (click)="submitForm()">Confirm Booking</button>
+
     </form>
   </div>
   

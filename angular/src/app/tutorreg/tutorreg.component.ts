@@ -1,23 +1,53 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tutorreg',
   standalone: true,
-  imports: [RouterModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './tutorreg.component.html',
   styleUrl: './tutorreg.component.css'
 })
 export class TutorregComponent {
-  constructor(private router: Router) { }
+  name = '';
+  email = '';
+  password = '';
+  confirmPassword = '';
+  gpa: number | null = null;
+  courseTutored = '';
+  extraInfo = '';
+  errorMessage = '';
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    // Perform any form validation or API calls if needed
-    console.log('Sign-up successful');
+    if (this.password !== this.confirmPassword) {
+      this.errorMessage = 'Passwords do not match';
+      return;
+    }
 
-    this.router.navigate(['/tutordash']);
+    const payload = {
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      gpa: this.gpa,
+      courseTutored: this.courseTutored,
+      extraInfo: this.extraInfo,
+      role: 'tutor'
+    };
+
+    this.http.post('http://localhost:5000/api/register', payload).subscribe({
+      next: () => {
+        alert('Registration successful!');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error(err);
+        this.errorMessage = 'Registration failed';
+      }
+    });
   }
-
-
 }

@@ -1,14 +1,14 @@
 <div class="session-list">
-    <div *ngFor="let booking of bookings" class="session-card">
-        <h3>{{ booking.topic }}</h3>
-        <p><span>Tutor:</span> {{ booking.tutor }}</p>
-        <p><span>Student:</span> {{ booking.student }}</p>
-        <p><span>Email:</span> {{ booking.email }}</p>
-        <p><span>Date:</span> {{ booking.date }}</p>
-        <p><span>Time:</span> {{ booking.time }}</p>
-        <p><span>Duration:</span> {{ booking.duration }}</p>
-        <p><span>Type:</span> {{ booking.type }}</p>
-        <p><span>Notes:</span> {{ booking.notes || 'None' }}</p>
-    </div>      
-</div>      
+    <div class="session-card" *ngFor="let booking of bookings">
+      <h3>{{ booking.topic }}</h3>
+      <p><strong>Tutor:</strong> {{ booking.tutorName }}</p>
+      <p><strong>Student:</strong> {{ booking.studentName }}</p>
+      <p><strong>Email:</strong> {{ booking.studentEmail }}</p>
+      <p><strong>Date:</strong> {{ booking.date }}</p>
+      <p><strong>Time:</strong> {{ booking.time }}</p>
+      <p><strong>Duration:</strong> {{ booking.duration }}</p>
+      <p><strong>Type:</strong> {{ booking.type }}</p>
+      <p><strong>Notes:</strong> {{ booking.notes || 'None' }}</p>
+    </div>
+  </div>
   
