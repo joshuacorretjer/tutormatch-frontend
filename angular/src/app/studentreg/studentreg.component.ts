@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-studentreg',
@@ -23,35 +22,34 @@ export class StudentregComponent {
   year: number | null = null;
   errorMessage = '';
 
-  constructor(private http: HttpClient, private router: Router, private authService:AuthService) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Passwords do not match';
       return;
     }
-  
+
     const studentData = {
       username: this.username,
-      firstName: this.firstName,
-      lastName: this.lastName,
+      first_name: this.firstName,
+      last_name: this.lastName,
       email: this.email,
-      major: this.major,
-      year: this.year,
       password: this.password,
-      role: 'student'
+      account_type: 'student',
+      major: this.major,
+      year: this.year
     };
-  
-    this.authService.registerStudent(studentData).subscribe({
+
+    this.http.post('http://localhost:5000/api/register', studentData).subscribe({
       next: () => {
         alert('Student registered successfully!');
         this.router.navigate(['/login']);
       },
-      error: (err: any) => {
+      error: (err) => {
         console.error(err);
         this.errorMessage = 'Registration failed.';
       }
     });
   }
-  
 }
