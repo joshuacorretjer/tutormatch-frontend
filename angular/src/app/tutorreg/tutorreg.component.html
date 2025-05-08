@@ -1,74 +1,92 @@
 <div class="register-container">
-    <h2>Tutor Registration</h2>
-  
-    <form>
-      <label for="name">Full Name</label>
-      <input
-        type="text"
-        id="name"
-        [(ngModel)]="name"
-        name="name"
-        required
-      />
-  
-      <label for="email">UPR Email</label>
-      <input
-        type="email"
-        id="email"
-        [(ngModel)]="email"
-        name="email"
-        required
-      />
-  
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        [(ngModel)]="password"
-        name="password"
-        required
-      />
-  
-      <label for="confirm-password">Confirm Password</label>
-      <input
-        type="password"
-        id="confirm-password"
-        [(ngModel)]="confirmPassword"
-        name="confirmPassword"
-        required
-      />
-  
-      <label for="gpa">GPA (Optional)</label>
-      <input
-        type="number"
-        id="gpa"
-        [(ngModel)]="gpa"
-        name="gpa"
-      />
-  
-      <label for="courses-tutored">Courses Tutored</label>
-      <select
-        id="courses-tutored"
-        [(ngModel)]="courseTutored"
-        name="courseTutored"
-      >
-        <option value="MATE">MATE</option>
-        <option value="QUIM">QUIM</option>
-        <option value="FISI">FISI</option>
-        <option value="ESPA">ESPA</option>
-        <option value="INSO">INSO</option>
-      </select>
-  
-      <label for="extra-info">Additional Info</label>
-      <textarea
-        id="extra-info"
-        [(ngModel)]="extraInfo"
-        name="extraInfo"
-        rows="4"
-      ></textarea>
-  
-      <button type="button" (click)="onSubmit()">Sign Up</button>
-      <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
-    </form>
-  </div>
-  
+  <h2>Tutor Registration</h2>
+
+  <form>
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      [(ngModel)]="username"
+      name="username"
+      required
+    />
+
+    <label for="firstName">First Name</label>
+    <input
+      type="text"
+      id="firstName"
+      [(ngModel)]="firstName"
+      name="firstName"
+      required
+    />
+
+    <label for="lastName">Last Name</label>
+    <input
+      type="text"
+      id="lastName"
+      [(ngModel)]="lastName"
+      name="lastName"
+      required
+    />
+
+    <label for="email">UPR Email</label>
+    <input
+      type="email"
+      id="email"
+      [(ngModel)]="email"
+      name="email"
+      required
+    />
+
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      [(ngModel)]="password"
+      name="password"
+      required
+    />
+
+    <label for="confirmPassword">Confirm Password</label>
+    <input
+      type="password"
+      id="confirmPassword"
+      [(ngModel)]="confirmPassword"
+      name="confirmPassword"
+      required
+    />
+
+    <label for="hourlyRate">Hourly Rate</label>
+    <input
+      type="number"
+      id="hourlyRate"
+      [(ngModel)]="hourlyRate"
+      name="hourlyRate"
+      required
+    />
+    <!--
+    <label for="coursesTutored">Courses Tutored</label>
+    <select
+      id="coursesTutored"
+      [(ngModel)]="coursesTutored"
+      name="coursesTutored"
+    >
+      <option value="MATE">MATE</option>
+      <option value="QUIM">QUIM</option>
+      <option value="FISI">FISI</option>
+      <option value="ESPA">ESPA</option>
+      <option value="INSO">INSO</option>
+    </select>
+    -->
+    <label for="extra-info">Additional Info</label>
+    <textarea
+      id="extra-info"
+      [(ngModel)]="extraInfo"
+      name="extraInfo"
+      rows="4"
+    ></textarea>
+
+    <button type="button" (click)="onSubmit()">Sign Up</button>
+    <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+  </form>
+</div>

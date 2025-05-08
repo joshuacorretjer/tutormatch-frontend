@@ -6,7 +6,7 @@
       (input)="filterTutors($event)"
     />
   </div>
-  
+
 
 <div class="tutor-grid">
   <div class="tutor-card" *ngFor="let tutor of filteredTutors">
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div class="modal-overlay" *ngIf="showBookingForm">
+<div class="modal-overlay" *ngIf="showBookingModal">
   <div class="modal-content">
     <app-book-session-form
       [tutorName]="selectedTutor?.name"

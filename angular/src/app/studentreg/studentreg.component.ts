@@ -12,10 +12,14 @@ import { Router } from '@angular/router';
   styleUrl: './studentreg.component.css'
 })
 export class StudentregComponent {
-  name = '';
+  username = '';
+  firstName = '';
+  lastName = '';
   email = '';
   password = '';
   confirmPassword = '';
+  major = '';
+  year: number | null = null;
   errorMessage = '';
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -27,10 +31,14 @@ export class StudentregComponent {
     }
 
     const studentData = {
-      name: this.name,
+      username: this.username,
+      first_name: this.firstName,
+      last_name: this.lastName,
       email: this.email,
       password: this.password,
-      role: 'student'
+      account_type: 'student',
+      major: this.major,
+      year: this.year
     };
 
     this.http.post('http://localhost:5000/api/register', studentData).subscribe({

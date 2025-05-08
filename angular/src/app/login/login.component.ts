@@ -2,36 +2,40 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   email = '';
   password = '';
+  account_type = '';
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
     const credentials = {
-      email: this.email,
-      password: this.password
+      username_or_email: this.email,  // Match Flask key
+      password: this.password,
+      account_type: this.account_type
     };
 
     this.authService.login(credentials).subscribe({
       next: (res) => {
+        console.log('Login response:', res);
         // Assume backend returns { email, role }
-        this.authService.setUserSession(res.email, res.role);
+        this.authService.setUserSession(res.username_or_email, res.account_type);
 
-        if (res.role === 'student') {
+        if (res.account_type === 'student') {
           this.router.navigate(['/studentdash']);
-        } else if (res.role === 'tutor') {
+        } else if (res.account_type === 'tutor') {
           this.router.navigate(['/tutordash']);
         } else {
           this.router.navigate(['/']);

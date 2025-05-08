@@ -1,3 +1,4 @@
+//import { Component, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -11,18 +12,35 @@ import { Router } from '@angular/router';
   templateUrl: './tutorreg.component.html',
   styleUrl: './tutorreg.component.css'
 })
+//export class TutorregComponent implements OnInit {
 export class TutorregComponent {
-  name = '';
+  username = '';
+  firstName = '';
+  lastName = '';
   email = '';
   password = '';
   confirmPassword = '';
-  gpa: number | null = null;
-  courseTutored = '';
+  hourlyRate: number | null = null;
+  //coursesTutored: string[] = [];
   extraInfo = '';
   errorMessage = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  //availableClasses: any[] = [];
 
+  constructor(private http: HttpClient, private router: Router) {}
+/*
+  ngOnInit() {
+    this.http.get<any[]>('http://localhost:5000/api/classes').subscribe({
+      next: (data) => {
+        this.availableClasses = data;
+      },
+      error: (err) => {
+        console.error('Failed to fetch classes', err);
+        this.errorMessage = 'Failed to load classes';
+      }
+    });
+  }
+*/
   onSubmit() {
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Passwords do not match';
@@ -30,13 +48,15 @@ export class TutorregComponent {
     }
 
     const payload = {
-      name: this.name,
+      username: this.username,
+      first_name: this.firstName,
+      last_name: this.lastName,
       email: this.email,
       password: this.password,
-      gpa: this.gpa,
-      courseTutored: this.courseTutored,
-      extraInfo: this.extraInfo,
-      role: 'tutor'
+      account_type: 'tutor',
+      hourly_rate: this.hourlyRate,
+      //classes: this.coursesTutored,
+      bio: this.extraInfo
     };
 
     this.http.post('http://localhost:5000/api/register', payload).subscribe({

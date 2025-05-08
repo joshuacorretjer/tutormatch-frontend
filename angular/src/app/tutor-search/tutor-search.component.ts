@@ -40,12 +40,14 @@ export class TutorSearchComponent implements OnInit {
     });
   }
 
-  filterTutors(): void {
-    const search = this.filterText.toLowerCase();
+  filterTutors(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.filterText = input.value.toLowerCase();
+
     this.filteredTutors = this.tutors.filter(tutor =>
-      tutor.name.toLowerCase().includes(search) ||
+      tutor.name.toLowerCase().includes(this.filterText) ||
       tutor.topics.some((topic: string) =>
-        topic.toLowerCase().includes(search)
+        topic.toLowerCase().includes(this.filterText)
       )
     );
   }

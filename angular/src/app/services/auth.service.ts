@@ -8,12 +8,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(credentials: { email: string; password: string }): Observable<any> {
+  login(credentials: { username_or_email: string; password: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, credentials);
   }
 
   registerStudent(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, { ...data, role: 'student' });
+    return this.http.post(`${this.baseUrl}/register`, { ...data, account_type: 'student' });
   }
 
   registerTutor(data: any): Observable<any> {

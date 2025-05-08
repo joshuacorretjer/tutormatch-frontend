@@ -1,16 +1,34 @@
 <div class="register-container">
     <h2>Student Registration</h2>
-  
+
     <form>
-      <label for="name">Full Name</label>
+      <label for="username">Username</label>
       <input
         type="text"
-        id="name"
-        [(ngModel)]="name"
-        name="name"
+        id="username"
+        [(ngModel)]="username"
+        name="username"
         required
       />
-  
+
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        id="firstName"
+        [(ngModel)]="firstName"
+        name="firstName"
+        required
+      />
+
+      <label for="lastName">Last Name</label>
+      <input
+        type="text"
+        id="lastName"
+        [(ngModel)]="lastName"
+        name="lastName"
+        required
+      />
+
       <label for="email">Institutional Email</label>
       <input
         type="email"
@@ -19,7 +37,24 @@
         name="email"
         required
       />
-  
+
+      <label for="major">Major</label>
+      <input
+        type="text"
+        id="major"
+        [(ngModel)]="major"
+        name="major"
+        required
+      />
+
+      <label for="year">Year (Optional)</label>
+      <input
+        type="number"
+        id="year"
+        [(ngModel)]="year"
+        name="year"
+      />
+
       <label for="password">Password</label>
       <input
         type="password"
@@ -28,18 +63,17 @@
         name="password"
         required
       />
-  
-      <label for="confirm-password">Confirm Password</label>
+
+      <label for="confirmPassword">Confirm Password</label>
       <input
         type="password"
-        id="confirm-password"
+        id="confirmPassword"
         [(ngModel)]="confirmPassword"
         name="confirmPassword"
         required
       />
-  
+
       <button type="button" (click)="onSubmit()">Sign Up</button>
       <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
     </form>
   </div>
-  
