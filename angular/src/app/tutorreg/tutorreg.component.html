@@ -1,92 +1,48 @@
 <div class="register-container">
   <h2>Tutor Registration</h2>
 
-  <form>
-    <label for="username">Username</label>
-    <input
-      type="text"
-      id="username"
-      [(ngModel)]="username"
-      name="username"
-      required
-    />
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input id="username" name="username" [(ngModel)]="username" required />
+    </div>
 
-    <label for="firstName">First Name</label>
-    <input
-      type="text"
-      id="firstName"
-      [(ngModel)]="firstName"
-      name="firstName"
-      required
-    />
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input id="firstName" name="firstName" [(ngModel)]="firstName" required />
+    </div>
 
-    <label for="lastName">Last Name</label>
-    <input
-      type="text"
-      id="lastName"
-      [(ngModel)]="lastName"
-      name="lastName"
-      required
-    />
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input id="lastName" name="lastName" [(ngModel)]="lastName" required />
+    </div>
 
-    <label for="email">UPR Email</label>
-    <input
-      type="email"
-      id="email"
-      [(ngModel)]="email"
-      name="email"
-      required
-    />
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" [(ngModel)]="email" required />
+    </div>
 
-    <label for="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      [(ngModel)]="password"
-      name="password"
-      required
-    />
+    <div class="form-group">
+      <label for="hourlyRate">Hourly Rate</label>
+      <input id="hourlyRate" name="hourlyRate" type="number" [(ngModel)]="hourlyRate" required />
+    </div>
 
-    <label for="confirmPassword">Confirm Password</label>
-    <input
-      type="password"
-      id="confirmPassword"
-      [(ngModel)]="confirmPassword"
-      name="confirmPassword"
-      required
-    />
+    <div class="form-group">
+      <label for="extraInfo">Additional Information</label>
+      <textarea id="extraInfo" name="extraInfo" rows="4" [(ngModel)]="extraInfo"></textarea>
+    </div>
 
-    <label for="hourlyRate">Hourly Rate</label>
-    <input
-      type="number"
-      id="hourlyRate"
-      [(ngModel)]="hourlyRate"
-      name="hourlyRate"
-      required
-    />
-    <!--
-    <label for="coursesTutored">Courses Tutored</label>
-    <select
-      id="coursesTutored"
-      [(ngModel)]="coursesTutored"
-      name="coursesTutored"
-    >
-      <option value="MATE">MATE</option>
-      <option value="QUIM">QUIM</option>
-      <option value="FISI">FISI</option>
-      <option value="ESPA">ESPA</option>
-      <option value="INSO">INSO</option>
-    </select>
-    -->
-    <label for="extra-info">Additional Info</label>
-    <textarea
-      id="extra-info"
-      [(ngModel)]="extraInfo"
-      name="extraInfo"
-      rows="4"
-    ></textarea>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" [(ngModel)]="password" required />
+    </div>
 
-    <button type="button" (click)="onSubmit()">Sign Up</button>
-    <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input id="confirmPassword" name="confirmPassword" type="password" [(ngModel)]="confirmPassword" required />
+    </div>
+
+    <button class="green-btn" type="submit">Sign Up</button>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
   </form>
 </div>
