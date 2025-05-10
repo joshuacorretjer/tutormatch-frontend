@@ -11,9 +11,10 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './book-session-form.component.css'
 })
 export class BookSessionFormComponent {
-  @Input() tutorName: string = '';
-  @Input() studentName: string = '';
-  @Input() studentEmail: string = '';
+  @Input() tutorId!: number;  // <-- Added for backend use
+  @Input() tutorName = '';
+  @Input() studentName = '';
+  @Input() studentEmail = '';
   @Output() closeModal = new EventEmitter<void>();
 
   formData = {
@@ -29,6 +30,7 @@ export class BookSessionFormComponent {
 
   submitForm() {
     const booking = {
+      tutorId: this.tutorId,  // <-- Added
       tutorName: this.tutorName,
       studentName: this.studentName,
       studentEmail: this.studentEmail,

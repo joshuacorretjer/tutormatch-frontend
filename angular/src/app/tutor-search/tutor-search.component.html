@@ -1,39 +1,42 @@
 <div class="filter-bar">
-    <input
-      type="text"
-      placeholder="Search tutors by name or topic..."
-      [(ngModel)]="filterText"
-      (input)="filterTutors($event)"
-    />
-  </div>
+  <input
+    type="text"
+    placeholder="Search by class name or tutor's name"
+    [formControl]="searchControl" />
 
+  <label>
+    Availability:
+    <select [formControl]="availabilityFilterControl" (change)="applyFilters()">
+      <option value="">Any Time</option>
+      <option value="morning">Morning</option>
+      <option value="afternoon">Afternoon</option>
+      <option value="evening">Evening</option>
+    </select>
+  </label>
 
-<div class="tutor-grid">
-  <div class="tutor-card" *ngFor="let tutor of filteredTutors">
-    <div class="left">
-      <img [src]="tutor.profilePicture" class="profile-pic" alt="Tutor Profile">
-      <div class="rating">
-        <ng-container *ngFor="let star of [1,2,3,4,5]">
-          <span [class.filled]="tutor.rating >= star">★</span>
-        </ng-container>
-      </div>
-    </div>
-    <div class="info">
-      <h3>{{ tutor.name }}</h3>
-      <p><strong>Topics:</strong> {{ tutor.topics.join(', ') }}</p>
-      <button class="book-btn" (click)="openBookingForm(tutor)">Book Session</button>
-    </div>
-  </div>
+  <label>
+    Min Rating:
+    <select [formControl]="minRatingFilterControl" (change)="applyFilters()">
+      <option [ngValue]="null">Any Rating</option>
+      <option *ngFor="let r of [5, 4, 3, 2, 1]" [ngValue]="r">{{ r }}+ stars</option>
+    </select>
+  </label>
 </div>
 
-<div class="modal-overlay" *ngIf="showBookingModal">
-  <div class="modal-content">
-    <app-book-session-form
-      [tutorName]="selectedTutor?.name"
-      [studentName]="studentName"
-      [studentEmail]="studentEmail"
-      (closeModal)="showBookingModal = false;">
-    </app-book-session-form>
-    <button class="close-btn" (click)="closeBookingForm()">✖</button>
-  </div>
+<!-- Display tutors list -->
+<div *ngIf="tutors.length === 0">No tutors found</div>
+
+<div *ngFor="let tutor of tutors" class="tutor-card">
+  <h3>{{ tutor.name }}</h3>
+  <p>{{ tutor.bio }}</p>
+  <p><strong>Hourly Rate:</strong> ${{ tutor.hourly_rate }}</p>
+  <p><strong>Average Rating:</strong> {{ tutor.average_rating }} stars</p>
+  <p><strong>Upcoming Slots:</strong> {{ tutor.upcoming_slots.join(', ') }}</p>
+</div>
+
+<!-- Pagination controls -->
+<div class="pagination">
+  <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
+  <span>Page {{ page }} of {{ totalTutors / perPage | number:'1.0-0' }}</span>
+  <button (click)="nextPage()" [disabled]="(page * perPage) >= totalTutors">Next</button>
 </div>

@@ -1,45 +1,43 @@
 <div class="form-container">
-    <h2>Book a Session</h2>
-  
-    <form (ngSubmit)="submitForm()">
-      <label>Tutor Name</label>
-      <input type="text" [value]="tutorName" readonly />
-  
-      <label>Your Name</label>
-      <input type="text" [value]="studentName" readonly />
-  
-      <label>Your Email</label>
-      <input type="email" [value]="studentEmail" readonly />
-  
-      <label>Topic</label>
-      <input type="text" [(ngModel)]="formData.topic" name="topic" required />
-  
-      <label>Preferred Date</label>
-      <input type="date" [(ngModel)]="formData.date" name="date" required />
-  
-      <label>Preferred Time</label>
-      <input type="time" [(ngModel)]="formData.time" name="time" required />
-  
-      <label>Duration</label>
-      <select [(ngModel)]="formData.duration" name="duration" required>
-        <option value="">Select</option>
-        <option>30 minutes</option>
-        <option>1 hour</option>
-        <option>90 minutes</option>
-      </select>
-  
-      <label>Meeting Type</label>
-      <select [(ngModel)]="formData.type" name="type" required>
-        <option value="">Select</option>
-        <option>Online</option>
-        <option>In-person</option>
-      </select>
-  
-      <label>Additional Notes</label>
-      <textarea [(ngModel)]="formData.notes" name="notes"></textarea>
-  
-      <button type="button" (click)="submitForm()">Confirm Booking</button>
+  <h2>Book a Session</h2>
 
-    </form>
-  </div>
-  
+  <form (ngSubmit)="submitForm()">
+    <label for="tutorName">Tutor Name</label>
+    <input id="tutorName" type="text" [value]="tutorName" readonly />
+
+    <label for="studentName">Your Name</label>
+    <input id="studentName" type="text" [value]="studentName" readonly />
+
+    <label for="studentEmail">Your Email</label>
+    <input id="studentEmail" type="email" [value]="studentEmail" readonly />
+
+    <label for="topic">Topic</label>
+    <input id="topic" type="text" [(ngModel)]="formData.topic" name="topic" required />
+
+    <label for="date">Preferred Date</label>
+    <input id="date" type="date" [(ngModel)]="formData.date" name="date" required />
+
+    <label for="time">Preferred Time</label>
+    <input id="time" type="time" [(ngModel)]="formData.time" name="time" required />
+
+    <label for="duration">Duration</label>
+    <select id="duration" [(ngModel)]="formData.duration" name="duration" required>
+      <option value="">Select</option>
+      <option>30 minutes</option>
+      <option>1 hour</option>
+      <option>90 minutes</option>
+    </select>
+
+    <label for="type">Meeting Type</label>
+    <select id="type" [(ngModel)]="formData.type" name="type" required>
+      <option value="">Select</option>
+      <option>Online</option>
+      <option>In-person</option>
+    </select>
+
+    <label for="notes">Additional Notes</label>
+    <textarea id="notes" [(ngModel)]="formData.notes" name="notes"></textarea>
+
+    <button type="button" (click)="submitForm()">Confirm Booking</button>
+  </form>
+</div>

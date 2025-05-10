@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:5000/api';
+  private baseUrl = 'http://127.0.0.1:5000/api';
 
   constructor(private http: HttpClient) {}
 
@@ -12,21 +13,34 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, credentials);
   }
 
-  registerStudent(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, { ...data, account_type: 'student' });
-  }
-
-  registerTutor(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, { ...data, role: 'tutor' });
-  }
-
   logout(): void {
     localStorage.clear();
   }
 
-  setUserSession(email: string, role: string): void {
-    localStorage.setItem('email', email);
-    localStorage.setItem('role', role);
+  setUserSession(token: string): void {
+    try {
+      const decoded: any = jwtDecode(token);
+      const userId = decoded.sub;
+      const role = decoded.account_type;
+      const email = decoded.username || decoded.email;
+      const name = decoded.name; // Assuming the token contains the user's name
+
+      localStorage.setItem('access_token', token);
+      localStorage.setItem('user_id', userId);
+      localStorage.setItem('role', role);
+      localStorage.setItem('email', email);
+      localStorage.setItem('name', name);  // Store the name as well
+    } catch (err) {
+      console.error('Invalid token format:', err);
+    }
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
+  getUserName(): string | null {
+    return localStorage.getItem('name');
   }
 
   getUserEmail(): string | null {
@@ -37,7 +51,11 @@ export class AuthService {
     return localStorage.getItem('role');
   }
 
+  getUserId(): string | null {
+    return localStorage.getItem('user_id');
+  }
+
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('email');
+    return !!this.getToken();
   }
 }

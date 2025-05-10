@@ -30,12 +30,12 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe({
       next: (res) => {
         console.log('Login response:', res);
-        // Assume backend returns { email, role }
-        this.authService.setUserSession(res.username_or_email, res.account_type);
+        this.authService.setUserSession(res.access_token);
 
-        if (res.account_type === 'student') {
+        const role = this.authService.getUserRole();
+        if (role === 'student') {
           this.router.navigate(['/studentdash']);
-        } else if (res.account_type === 'tutor') {
+        } else if (role === 'tutor') {
           this.router.navigate(['/tutordash']);
         } else {
           this.router.navigate(['/']);

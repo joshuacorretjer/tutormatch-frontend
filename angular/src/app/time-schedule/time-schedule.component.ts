@@ -9,7 +9,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
+import { HttpHeaders } from '@angular/common/http'
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-time-schedule',
@@ -31,16 +32,31 @@ import { MatIconModule } from '@angular/material/icon';
 export class TimeScheduleComponent implements OnInit {
   schedule: any[] = [];
   slot = { date: new Date(), time: '' };
-  tutorEmail: string = 'tutor@example.com'; // Replace with actual user context
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.loadSchedule();
-  }
 
+    // Reload schedule if navigating back to this component
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && this.router.url.includes('time-schedule')) {
+        this.loadSchedule();
+      }
+    });
+  }
   loadSchedule(): void {
-    this.http.get<any[]>(`http://localhost:5000/api/schedule?tutor=${this.tutorEmail}`).subscribe({
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      console.error('No access token found.');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.get<any[]>('http://127.0.0.1:5000/api/tutor/availability', { headers }).subscribe({
       next: (res) => {
         this.schedule = res;
       },
@@ -53,25 +69,52 @@ export class TimeScheduleComponent implements OnInit {
   addSlot(): void {
     if (!this.slot.date || !this.slot.time) return;
 
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      console.error('No access token found.');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    const dateStr = new Date(this.slot.date).toISOString().split('T')[0];
+    const startTime = new Date(`${dateStr}T${this.slot.time}:00`);
+    const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
+
     const payload = {
-      tutorEmail: this.tutorEmail,
-      date: this.slot.date,
-      time: this.slot.time
+      start_time: startTime.toISOString(),
+      end_time: endTime.toISOString()
     };
 
-    this.http.post('http://localhost:5000/api/schedule', payload).subscribe({
+    this.http.post('http://127.0.0.1:5000/api/tutor/availability', payload, { headers }).subscribe({
       next: (res: any) => {
-        this.schedule.push(res); // Assuming backend returns the new slot with ID
+        this.schedule.push(res);
         this.slot = { date: new Date(), time: '' };
       },
       error: (err) => {
-        console.error('Error saving schedule:', err);
+        console.error('Error saving availability:', err);
       }
     });
   }
 
   removeSlot(slot: any): void {
-    this.http.delete(`http://localhost:5000/api/schedule/${slot.id}`).subscribe({
+    if (!window.confirm(`Are you sure you want to delete this time slot?\n${new Date(slot.start_time).toLocaleString()} - ${new Date(slot.end_time).toLocaleTimeString()}`)) {
+      return;
+    }
+
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      console.error('No access token found.');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.delete(`http://127.0.0.1:5000/api/tutor/availability/${slot.id}`, { headers }).subscribe({
       next: () => {
         this.schedule = this.schedule.filter(s => s.id !== slot.id);
       },

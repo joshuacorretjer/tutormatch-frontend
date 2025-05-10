@@ -1,65 +1,143 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { BookSessionFormComponent } from '../book-session-form/book-session-form.component';
+import { AuthService } from '../services/auth.service';
+import { FormsModule } from '@angular/forms';
+
+interface Tutor {
+  id: string;
+  name: string;
+  hourly_rate: number;
+  bio: string;
+  average_rating: number;
+  upcoming_slots: string[];
+}
 
 @Component({
   selector: 'app-tutor-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, BookSessionFormComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, BookSessionFormComponent],
   templateUrl: './tutor-search.component.html',
-  styleUrl: './tutor-search.component.css'
+  styleUrls: ['./tutor-search.component.css']
 })
-export class TutorSearchComponent implements OnInit {
-  showBookingModal = false;
-  selectedTutor: any = null;
+export class TutorSearchComponent implements OnInit, OnDestroy {
+  searchControl = new FormControl('');
+  availabilityFilterControl = new FormControl(''); // Reactive form for availability
+  minRatingFilterControl = new FormControl<number | null>(null); // Reactive form for rating
 
-  studentName = '';
+  page = 1;
+  perPage = 10;
+  totalTutors = 0;
+
+  tutors: Tutor[] = [];
+
   studentEmail = '';
+  studentName = '';
 
-  tutors: any[] = [];
-  filteredTutors: any[] = [];
-  filterText: string = '';
+  private destroy$ = new Subject<void>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit(): void {
+    // Ensure student info is correctly fetched from localStorage
+    this.studentEmail = this.authService.getUserEmail() ?? '';
+    this.studentName = this.authService.getUserName() ?? '';
     this.fetchTutors();
+
+    // Listen to search input with debounce
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.page = 1;
+        this.fetchTutors();
+      });
+
+    // Listen to availability filter changes
+    this.availabilityFilterControl.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.page = 1;
+        this.fetchTutors();
+      });
+
+    // Listen to min rating filter changes
+    this.minRatingFilterControl.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.page = 1;
+        this.fetchTutors();
+      });
   }
 
   fetchTutors(): void {
-    this.http.get<any[]>('http://localhost:5000/api/tutors').subscribe({
-      next: (res) => {
-        this.tutors = res;
-        this.filteredTutors = [...res];
-      },
-      error: (err) => {
-        console.error('Failed to load tutors:', err);
-      }
-    });
-  }
+    let params = new HttpParams()
+      .set('page', this.page)
+      .set('per_page', this.perPage);
 
-  filterTutors(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.filterText = input.value.toLowerCase();
+    const query = this.searchControl.value ?? '';
+    if (query) {
+      params = params.set('query', query);
+    }
 
-    this.filteredTutors = this.tutors.filter(tutor =>
-      tutor.name.toLowerCase().includes(this.filterText) ||
-      tutor.topics.some((topic: string) =>
-        topic.toLowerCase().includes(this.filterText)
+    const availability = this.availabilityFilterControl.value;
+    if (availability) {
+      params = params.set('availability', availability);
+    }
+
+    const minRating = this.minRatingFilterControl.value;
+    if (minRating !== null) {
+      params = params.set('min_rating', minRating.toString());
+    }
+
+    // Debugging: Log params before making the API call
+    console.log(params.toString());
+
+    this.http
+      .get<{ tutors: Tutor[]; total: number; page: number; per_page: number }>(
+        'http://127.0.0.1:5000/api/student/tutors',
+        { params }
       )
-    );
+      .subscribe({
+        next: (res) => {
+          console.log('API response:', res); // Log API response
+          this.tutors = res.tutors;
+          this.totalTutors = res.total;
+          console.log('Tutors:', this.tutors);
+        },
+        error: (err) => {
+          console.error('Failed to load tutors:', err);
+        },
+      });
   }
 
-  openBookingForm(tutor: any) {
-    this.showBookingModal = true;
-    this.selectedTutor = tutor;
-    document.body.classList.add('modal-open');
+  applyFilters(): void {
+    this.page = 1;
+    this.fetchTutors();
   }
 
-  closeBookingForm() {
-    this.showBookingModal = false;
-    document.body.classList.remove('modal-open');
+  nextPage(): void {
+    if ((this.page * this.perPage) < this.totalTutors) {
+      this.page++;
+      this.fetchTutors();
+    }
+  }
+
+  prevPage(): void {
+    if (this.page > 1) {
+      this.page--;
+      this.fetchTutors();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
