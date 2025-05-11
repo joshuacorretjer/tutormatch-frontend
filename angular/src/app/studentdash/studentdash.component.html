@@ -1,43 +1,42 @@
 <header class="header">
-    <div class="menu-icon" (click)="toggleMenu()">☰</div>
-    <div class="dropdown-menu" [class.show]="menuOpen">
-        <ul>
-            <li (click)="logout()">Log Out</li>
-        </ul>
-    </div>
+  <div class="menu-icon" (click)="toggleMenu()">☰</div>
+  <div class="dropdown-menu" [class.show]="menuOpen">
+    <ul>
+      <li (click)="logout()">Log Out</li>
+    </ul>
+  </div>
 </header>
-<div class="dashboard-wrapper">
-    <div class="dashboard-container">
-        <div class="profile-section">
-            <img [src]="profileImage" alt="Profile Picture" class="profile-pic">
-            <input type="file" id="profileUpload" class="hidden" (change)="uploadProfileImage($event)">
-            <button class="upload-btn" (click)="triggerFileInput()">Change Picture</button>
-            <div class="profile-info">
-                <p><strong>Name:</strong> Name Here</p>
-                <p><strong>Email:</strong> Email here</p>
-            </div>
-        </div>
-        <div class="tab-wrapper">
-            <div class="tab-container">
-                <div class="tab" [class.active]="activeTab === 'tutors'" (click)="setActiveTab('tutors')">Tutors</div>
-                <div class="tab" [class.active]="activeTab === 'course list'" (click)="setActiveTab('course list')">Course List</div>
-                <!-- <div class="tab" [class.active]="activeTab === 'book'" (click)="setActiveTab('book')">Book Session</div> -->
-                <div class="tab" [class.active]="activeTab === 'booked'" (click)="setActiveTab('booked')">Booked Sessions</div>
-            </div>
-            <div class="tab-content">
-                <div *ngIf="activeTab === 'tutors'">
-                    <app-tutor-search></app-tutor-search>
-                </div>
 
-                <div *ngIf="activeTab === 'course list'">
-                    <app-course-list></app-course-list>
-                </div>
-            
-                <div *ngIf="activeTab === 'booked'">
-                    <app-booked-sessions></app-booked-sessions>
-                </div>
-                
-            </div>
-        </div>
+<div class="dashboard-wrapper">
+  <div class="dashboard-container">
+    <div class="profile-section">
+      <img [src]="profileImage" alt="Profile Picture" class="profile-pic">
+      <input type="file" id="profileUpload" class="hidden" (change)="uploadProfileImage($event)">
+      <button class="upload-btn" (click)="triggerFileInput()">Change Picture</button>
+      <div class="profile-info">
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Email:</strong> {{ email }}</p>
+      </div>
     </div>
+    <div class="tab-wrapper">
+      <div class="tab-container">
+        <div class="tab" [class.active]="activeTab === 'tutors'" (click)="setActiveTab('tutors')">Tutors</div>
+        <div class="tab" [class.active]="activeTab === 'course list'" (click)="setActiveTab('course list')">Course List</div>
+        <div class="tab" [class.active]="activeTab === 'booked'" (click)="setActiveTab('booked')">Booked Sessions</div>
+      </div>
+      <div class="tab-content">
+        <div *ngIf="activeTab === 'tutors'">
+          <app-tutor-search></app-tutor-search>
+        </div>
+
+        <div *ngIf="activeTab === 'course list'">
+          <app-course-list></app-course-list>
+        </div>
+
+        <div *ngIf="activeTab === 'booked'">
+          <app-booked-sessions-student></app-booked-sessions-student>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

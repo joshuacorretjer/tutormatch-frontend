@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { MatListModule } from '@angular/material/list'; // <-- Import MatListModule
 
 @Component({
-  selector: 'app-booked-sessions',
+  selector: 'app-booked-sessions-student',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './booked-sessions.component.html',
-  styleUrl: './booked-sessions.component.css'
+  imports: [CommonModule, MatListModule], // <-- Add MatListModule here
+  templateUrl: './booked-sessions-student.component.html',
+  styleUrl: './booked-sessions-student.component.css'
 })
-export class BookedSessionsComponent implements OnInit {
+export class BookedSessionsStudentComponent implements OnInit {
   bookings: any[] = [];
 
   constructor(private http: HttpClient) {}
@@ -19,10 +20,9 @@ export class BookedSessionsComponent implements OnInit {
   }
 
   fetchBookings(): void {
-    this.http.get<any[]>('http://localhost:5000/api/bookings').subscribe({
+    this.http.get<any[]>('http://127.0.0.1:5000/api/student/sessions').subscribe({
       next: (response) => {
         this.bookings = response;
-        console.log('Fetched bookings:', response);
       },
       error: (err) => {
         console.error('Error fetching bookings:', err);

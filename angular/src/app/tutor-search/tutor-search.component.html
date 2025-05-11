@@ -1,3 +1,4 @@
+<!-- Filter Bar -->
 <div class="filter-bar">
   <input
     type="text"
@@ -6,7 +7,7 @@
 
   <label>
     Availability:
-    <select [formControl]="availabilityFilterControl" (change)="applyFilters()">
+    <select [formControl]="availabilityFilterControl">
       <option value="">Any Time</option>
       <option value="morning">Morning</option>
       <option value="afternoon">Afternoon</option>
@@ -16,27 +17,47 @@
 
   <label>
     Min Rating:
-    <select [formControl]="minRatingFilterControl" (change)="applyFilters()">
+    <select [formControl]="minRatingFilterControl">
       <option [ngValue]="null">Any Rating</option>
       <option *ngFor="let r of [5, 4, 3, 2, 1]" [ngValue]="r">{{ r }}+ stars</option>
     </select>
   </label>
 </div>
 
-<!-- Display tutors list -->
+<!-- Tutors -->
 <div *ngIf="tutors.length === 0">No tutors found</div>
 
-<div *ngFor="let tutor of tutors" class="tutor-card">
-  <h3>{{ tutor.name }}</h3>
-  <p>{{ tutor.bio }}</p>
-  <p><strong>Hourly Rate:</strong> ${{ tutor.hourly_rate }}</p>
-  <p><strong>Average Rating:</strong> {{ tutor.average_rating }} stars</p>
-  <p><strong>Upcoming Slots:</strong> {{ tutor.upcoming_slots.join(', ') }}</p>
+<div class="tutor-grid">
+  <div *ngFor="let tutor of tutors" class="tutor-card">
+    <h3>{{ tutor.name }}</h3>
+    <p>{{ tutor.bio }}</p>
+    <p><strong>Rating:</strong> {{ tutor.average_rating }} stars</p>
+    <p><strong>Rate:</strong> ${{ tutor.hourly_rate }}</p>
+    <button class="book-btn" (click)="openSlotPopup(tutor)">Book Session</button>
+  </div>
 </div>
 
-<!-- Pagination controls -->
+<!-- Pagination -->
 <div class="pagination">
   <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
   <span>Page {{ page }} of {{ totalTutors / perPage | number:'1.0-0' }}</span>
   <button (click)="nextPage()" [disabled]="(page * perPage) >= totalTutors">Next</button>
+</div>
+
+<!-- Booking Modal -->
+<div class="modal-backdrop" *ngIf="selectedTutor">
+  <div class="modal">
+    <h3>Choose a Slot for {{ selectedTutor.name }}</h3>
+
+    <div *ngIf="selectedTutor.upcoming_slots && selectedTutor.upcoming_slots.length > 0">
+      <ul>
+        <li *ngFor="let slot of selectedTutor.upcoming_slots" class="timeslot-row">
+          <span>{{ slot.start_time | date: 'MMMM d, yyyy' }}: {{ slot.start_time | date: 'shortTime' }} - {{ slot.end_time | date: 'shortTime' }}</span>
+          <button (click)="bookSession(slot.id)">Select</button>
+        </li>
+      </ul>
+    </div>
+
+    <button class="cancel-btn" (click)="closeSlotPopup()">Cancel</button>
+  </div>
 </div>

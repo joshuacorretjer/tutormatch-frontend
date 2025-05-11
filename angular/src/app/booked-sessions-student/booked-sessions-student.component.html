@@ -1,0 +1,23 @@
+<div class="booked-wrapper">
+
+  <mat-list *ngIf="bookings.length > 0; else noSessions">
+    <mat-list-item *ngFor="let session of bookings">
+      <div class="session-info">
+        <div class="session-date">
+          <strong>{{ session.start_time | date: 'fullDate' }}</strong>
+        </div>
+        <div class="session-time">
+          {{ session.start_time | date: 'shortTime' }} - {{ session.end_time | date: 'shortTime' }}
+        </div>
+        <div class="session-tutor">
+          <strong>Tutor:</strong>
+          {{ session.tutor?.first_name || 'Unknown' }} {{ session.tutor?.last_name || '' }}
+        </div>
+      </div>
+    </mat-list-item>
+  </mat-list>
+
+  <ng-template #noSessions>
+    <p>No sessions booked yet.</p>
+  </ng-template>
+</div>

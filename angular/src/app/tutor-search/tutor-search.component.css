@@ -1,145 +1,185 @@
-/* Tutor grid layout */
-.tutor-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Adjusted for slightly larger cards */
-  gap: 20px;
-  padding: 1rem;
-  max-height: 80vh; /* Optional: Makes grid scrollable if content exceeds max-height */
-  overflow-y: auto;
-  justify-items: center; /* Centers the cards */
-}
-
-/* Styling for each tutor card */
-.tutor-card {
-  width: 100%; /* Ensure cards fill available space */
-  max-width: 350px; /* Limit the card width */
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow for depth */
-  padding: 20px;
-  display: flex;
-  flex-direction: column; /* Stack content vertically */
-  align-items: flex-start; /* Align to the start */
-  gap: 15px;
-  transition: transform 0.3s ease; /* Smooth hover effect */
-}
-
-.tutor-card:hover {
-  transform: translateY(-5px); /* Adds a small lift on hover */
-}
-
-/* Profile picture styling */
-.profile-pic {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #ccc;
-}
-
-/* Information section inside each card */
-.info {
-  flex: 1;
-  display: flex;
-  flex-direction: column; /* Stack info vertically */
-  gap: 10px;
-}
-
-/* Book button styling */
-.book-btn {
-  margin-top: 15px;
-  background-color: green;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.book-btn:hover {
-  background-color: darkgreen;
-}
-
-/* Filter bar styling */
-.filter-bar {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.filter-bar input,
-.filter-bar select {
-  padding: 10px 15px;
-  width: 80%;
-  max-width: 400px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.filter-bar input {
-  margin-top: 0; /* Adjust input margin */
-}
-
-/* Rating stars styling */
-.rating {
-  text-align: center;
-  margin-top: 5px;
-}
-
-.rating span {
-  color: #ccc;
-  font-size: 18px;
-}
-
-.rating span.filled {
-  color: #f4c430; /* Golden color for filled stars */
-}
-
-/* Modal overlay styling */
-.modal-overlay {
+/* Modal Backdrop */
+.modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-  overflow-y: auto;
-  padding: 40px 20px;
+  align-items: center;
   z-index: 1000;
 }
 
-/* Modal content box */
-.modal-content {
-  position: relative;
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 700px;
-  max-height: 90vh;
+/* Modal Container */
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
   overflow-y: auto;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Close button styling inside modal */
-.close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 20px;
-  background: none;
+/* Modal Heading */
+.modal h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Timeslot Rows */
+.timeslot-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 10px;
+  background-color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover Effect for Timeslot Rows */
+.timeslot-row:hover {
+  background-color: #f0f0f0;
+}
+
+/* Timeslot Date and Time */
+.timeslot-row span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  flex-grow: 1;
+}
+
+/* The Select Button */
+.timeslot-row button {
+  padding: 6px 12px;
+  background-color: #007bff;
   border: none;
-  color: red;
+  border-radius: 4px;
+  color: white;
   cursor: pointer;
-  z-index: 1001;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
 }
 
-body.modal-open {
-  overflow-x: hidden;
+/* Hover Effect for Select Button */
+.timeslot-row button:hover {
+  background-color: #0056b3;
+}
+
+/* Cancel Button */
+.cancel-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover Effect for Cancel Button */
+.cancel-btn:hover {
+  background-color: #c82333;
+}
+
+/* Styling for Tutor Information */
+.tutor-grid .tutor-card {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.tutor-grid .tutor-card h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.tutor-grid .tutor-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.book-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.book-btn:hover {
+  background-color: #218838;
+}
+
+/* Styling for Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+}
+
+.pagination span {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Styling for Filter Bar */
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filter-bar input {
+  padding: 8px;
+  width: 40%;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.filter-bar label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.filter-bar select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  margin-top: 5px;
 }

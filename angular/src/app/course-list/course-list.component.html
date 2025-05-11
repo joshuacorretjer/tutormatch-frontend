@@ -1,53 +1,76 @@
 <div class="filter-bar">
-    <input
-      type="text"
-      placeholder="Search by course name or code..."
-      (input)="filterCourses($event)"
-    />
-  </div>
-  
+  <input
+    type="text"
+    placeholder="Search by subject name, code, or section..."
+    (input)="filterCourses($event)"
+  />
+</div>
 
 <div class="course-table-wrapper">
-    <table class="course-table">
-      <thead>
-        <tr>
-            <th (click)="sortBy('code')">
-                Course Code
-                <span>
-                  <ng-container *ngIf="currentSortColumn === 'code'; else neutral">
-                    {{ sortDirection['code'] === 'asc' ? '▲' : '▼' }}
-                  </ng-container>
-                  <ng-template #neutral>⇅</ng-template>
-                </span>
-              </th>
+  <table class="course-table">
+    <thead>
+      <tr>
+        <th (click)="sortBy('subjectCode')">
+          Subject Code
+          <span>
+            <ng-container *ngIf="currentSortColumn === 'subjectCode'; else codeNeutral">
+              {{ sortDirection['subjectCode'] === 'asc' ? '▲' : '▼' }}
+            </ng-container>
+            <ng-template #codeNeutral>⇅</ng-template>
+          </span>
+        </th>
 
-              <th (click)="sortBy('name')">
-                Course Name
-                <span>
-                  <ng-container *ngIf="currentSortColumn === 'name'; else nameNeutral">
-                    {{ sortDirection['name'] === 'asc' ? '▲' : '▼' }}
-                  </ng-container>
-                  <ng-template #nameNeutral>⇅</ng-template>
-                </span>
-              </th>
+        <th (click)="sortBy('subjectName')">
+          Subject Name
+          <span>
+            <ng-container *ngIf="currentSortColumn === 'subjectName'; else nameNeutral">
+              {{ sortDirection['subjectName'] === 'asc' ? '▲' : '▼' }}
+            </ng-container>
+            <ng-template #nameNeutral>⇅</ng-template>
+          </span>
+        </th>
 
-              <th (click)="sortBy('credits')">
-                Credits
-                <span>
-                  <ng-container *ngIf="currentSortColumn === 'credits'; else creditsNeutral">
-                    {{ sortDirection['credits'] === 'asc' ? '▲' : '▼' }}
-                  </ng-container>
-                  <ng-template #creditsNeutral>⇅</ng-template>
-                </span>
-              </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let course of filteredCourses">
-          <td>{{ course.code }}</td>
-          <td>{{ course.name }}</td>
-          <td>{{ course.credits }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        <th (click)="sortBy('classSection')">
+          Class Section
+          <span>
+            <ng-container *ngIf="currentSortColumn === 'classSection'; else sectionNeutral">
+              {{ sortDirection['classSection'] === 'asc' ? '▲' : '▼' }}
+            </ng-container>
+            <ng-template #sectionNeutral>⇅</ng-template>
+          </span>
+        </th>
+
+        <th (click)="sortBy('tutorCount')">
+          Tutors
+          <span>
+            <ng-container *ngIf="currentSortColumn === 'tutorCount'; else tutorNeutral">
+              {{ sortDirection['tutorCount'] === 'asc' ? '▲' : '▼' }}
+            </ng-container>
+            <ng-template #tutorNeutral>⇅</ng-template>
+          </span>
+        </th>
+
+        <th *ngIf="isTutor">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let course of filteredClasses">
+        <td>{{ course.subjectCode }}</td>
+        <td>{{ course.subjectName }}</td>
+        <td>{{ course.classSection }}</td>
+        <td>{{ course.tutorCount }}</td>
+
+        <td *ngIf="isTutor">
+          <button
+            [disabled]="joinedClassIds.has(course.id)"
+            [ngClass]="{ 'joined-button': joinedClassIds.has(course.id) }"
+            (click)="confirmJoin(course.id)"
+          >
+            {{ joinedClassIds.has(course.id) ? 'Joined' : 'Join' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

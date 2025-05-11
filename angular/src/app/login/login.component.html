@@ -1,7 +1,7 @@
 <div class="header"></div>
 <div class="container">
     <h1>Login</h1>
-    <p>Don't have an acount? <a [routerLink]="['/register']">Register Here</a></p>
+    <p>Don't have an account? <a [routerLink]="['/register']">Register Here</a></p>
     <form (ngSubmit)="login()" #loginForm="ngForm">
         <label for="email">Email</label>
         <input
@@ -14,7 +14,7 @@
             />
 
         <label for="password">Password</label>
-        <input 
+        <input
             type="password"
             name="password"
             id="password"

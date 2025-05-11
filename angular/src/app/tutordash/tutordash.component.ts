@@ -1,21 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseListComponent } from '../course-list/course-list.component';
-import { SessionRequestsComponent } from '../session-requests/session-requests.component';
+import { BookedSessionsTutorComponent } from '../booked-sessions-tutor/booked-sessions-tutor.component';
 import { TimeScheduleComponent } from '../time-schedule/time-schedule.component';
-
+import { RouterModule, Router } from '@angular/router';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-tutordash',
   standalone: true,
-  imports: [CommonModule, CourseListComponent, SessionRequestsComponent, TimeScheduleComponent],
+  imports: [RouterModule, CommonModule, CourseListComponent, BookedSessionsTutorComponent, TimeScheduleComponent],
   templateUrl: './tutordash.component.html',
   styleUrl: './tutordash.component.css'
 })
-export class TutorDashComponent {
-  activeTab: string = 'tutors';
+export class TutorDashComponent implements OnInit {
+  activeTab = 'tutors';
   menuOpen = false;
-  profileImage: string = 'assets/default-profile.png';
+  profileImage = 'assets/default-profile.png';
+  name = '';
+  email = '';
+
+  constructor(private router: Router, private profileService: ProfileService) {}
+
+  ngOnInit() {
+    this.profileService.getProfile().subscribe({
+      next: (data) => {
+        this.name = `${data.first_name} ${data.last_name}`;
+        this.email = data.email;
+      },
+      error: (err) => {
+        console.error('Failed to load profile', err);
+      }
+    });
+  }
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
@@ -42,6 +59,7 @@ export class TutorDashComponent {
   }
 
   logout() {
-    // redirect to homepage/login etc.
+    console.log('Logout');
+    this.router.navigate(['/login']);
   }
 }
