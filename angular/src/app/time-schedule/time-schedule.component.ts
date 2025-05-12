@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpHeaders } from '@angular/common/http'
 import { Router, NavigationEnd } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-time-schedule',
@@ -56,7 +57,7 @@ export class TimeScheduleComponent implements OnInit {
       Authorization: `Bearer ${token}`
     });
 
-    this.http.get<any[]>('http://127.0.0.1:5000/api/tutor/availability', { headers }).subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/api/tutor/availability`, { headers }).subscribe({
       next: (res) => {
         this.schedule = res;
       },
@@ -88,7 +89,7 @@ export class TimeScheduleComponent implements OnInit {
       end_time: endTime.toISOString()
     };
 
-    this.http.post('http://127.0.0.1:5000/api/tutor/availability', payload, { headers }).subscribe({
+    this.http.post(`${environment.apiUrl}/api/tutor/availability`, payload, { headers }).subscribe({
       next: (res: any) => {
         this.schedule.push(res);
         this.slot = { date: new Date(), time: '' };
@@ -114,7 +115,7 @@ export class TimeScheduleComponent implements OnInit {
       Authorization: `Bearer ${token}`
     });
 
-    this.http.delete(`http://127.0.0.1:5000/api/tutor/availability/${slot.id}`, { headers }).subscribe({
+    this.http.delete(`${environment.apiUrl}/api/tutor/availability/${slot.id}`, { headers }).subscribe({
       next: () => {
         this.schedule = this.schedule.filter(s => s.id !== slot.id);
       },

@@ -5,6 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { environment } from '../environments/environment';
 
 interface Tutor {
   id: string;
@@ -84,7 +85,7 @@ export class TutorSearchComponent implements OnInit, OnDestroy {
 
     this.http
       .get<{ tutors: Tutor[]; total: number; page: number; per_page: number }>(
-        'http://127.0.0.1:5000/api/student/tutors',
+        `${environment.apiUrl}/api/student/tutors`,
         { params }
       )
       .subscribe({
@@ -138,7 +139,7 @@ export class TutorSearchComponent implements OnInit, OnDestroy {
   bookSession(slotId: string): void {
     const data = { slot_id: slotId };
 
-    this.http.post('http://127.0.0.1:5000/api/student/sessions', data).subscribe(
+    this.http.post(`${environment.apiUrl}/api/student/sessions`, data).subscribe(
       (response: any) => {
         if (response.message === 'Session booked') {
           console.log('Session booked successfully:', response);

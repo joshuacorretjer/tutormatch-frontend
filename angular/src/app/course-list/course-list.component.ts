@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../services/auth.service';  // Adjust the path
+import { AuthService } from '../services/auth.service';
+import { environment } from '../environments/environment';  // Adjust the path
 
 @Component({
   selector: 'app-course-list',
@@ -31,7 +32,7 @@ export class CourseListComponent implements OnInit {
     this.isTutor = role === 'tutor';
 
     if (this.isTutor && userId) {
-      this.http.get<any>(`http://127.0.0.1:5000/api/tutor/user/${userId}`).subscribe({
+      this.http.get<any>(`${environment.apiUrl}/api/tutor/user/${userId}`).subscribe({
         next: (data) => {
           this.tutorId = data.id;  // Actual tutor ID from DB
           console.log('Fetched Tutor ID:', this.tutorId);
@@ -47,7 +48,7 @@ export class CourseListComponent implements OnInit {
   }
 
   fetchClasses(): void {
-    this.http.get<any[]>('http://127.0.0.1:5000/api/classes').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/api/classes`).subscribe({
       next: (data) => {
         this.classes = data.map(c => ({
           id: c.id,
@@ -66,7 +67,7 @@ export class CourseListComponent implements OnInit {
 
   fetchJoinedClasses(tutorId: string): void {
     console.log('Tutor ID:', this.tutorId);
-    this.http.get<any[]>(`http://127.0.0.1:5000/api/tutor/${tutorId}/classes`).subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/api/tutor/${tutorId}/classes`).subscribe({
       next: (data) => {
         this.joinedClassIds = new Set(data.map(cls => cls.id));
       },
@@ -121,7 +122,7 @@ export class CourseListComponent implements OnInit {
   associateWithClass(classId: string): void {
     if (!this.tutorId) return;
 
-    this.http.post(`http://127.0.0.1:5000/api/tutor/${this.tutorId}/classes`, {
+    this.http.post(`${environment.apiUrl}/api/tutor/${this.tutorId}/classes`, {
       class_ids: [classId]
     }).subscribe({
       next: () => {

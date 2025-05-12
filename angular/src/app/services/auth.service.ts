@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { environment } from '../environments/environment';  // Add this import
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://127.0.0.1:5000/api';
+  private baseUrl = `${environment.apiUrl}/api`;  // Use environment variable here
 
   constructor(private http: HttpClient) {}
 
@@ -23,13 +24,13 @@ export class AuthService {
       const userId = decoded.sub;
       const role = decoded.account_type;
       const email = decoded.username || decoded.email;
-      const name = decoded.name; // Assuming the token contains the user's name
+      const name = decoded.name;
 
       localStorage.setItem('access_token', token);
       localStorage.setItem('user_id', userId);
       localStorage.setItem('role', role);
       localStorage.setItem('email', email);
-      localStorage.setItem('name', name);  // Store the name as well
+      localStorage.setItem('name', name);
     } catch (err) {
       console.error('Invalid token format:', err);
     }

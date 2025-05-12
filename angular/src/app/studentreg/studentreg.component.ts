@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-studentreg',
@@ -41,7 +42,7 @@ export class StudentregComponent {
       year: this.year
     };
 
-    this.http.post('http://localhost:5000/api/register', studentData).subscribe({
+    this.http.post(`${environment.apiUrl}/api/register`, studentData).subscribe({
       next: () => {
         alert('Student registered successfully!');
         this.router.navigate(['/login']);

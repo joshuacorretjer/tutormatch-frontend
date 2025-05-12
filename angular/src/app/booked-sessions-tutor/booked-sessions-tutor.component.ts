@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list'; // <-- Import MatListModule
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-booked-sessions-tutor',
@@ -20,7 +21,7 @@ export class BookedSessionsTutorComponent implements OnInit {
   }
 
   fetchBookings(): void {
-    this.http.get<any[]>('http://127.0.0.1:5000/api/tutor/sessions').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/api/tutor/sessions`).subscribe({
       next: (response) => {
         console.log('Bookings:', response);
         this.bookings = response;
