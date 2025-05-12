@@ -1,7 +1,7 @@
 // environment.prod.ts (for production)
 export const environment = {
   production: true,
-  apiUrl: 'https://tutormatch.herokuapp.com'  // Heroku backend
+  apiUrl: 'https://tutormatch-12da47ab42c5.herokuapp.com/'  // Heroku backend
 };
 
 /*
